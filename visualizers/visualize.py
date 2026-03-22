@@ -1,48 +1,3 @@
-# import rasterio
-# import matplotlib.pyplot as plt
-# import numpy as np
-
-# tif_path = r"E:\Projects for Resume\terrain_analyzer\2019-01-04-00_00_2019-03-30-23_59_Sentinel-2_L2A_custom (1).tiff"
-# after_tif_path = r"E:\Projects for Resume\terrain_analyzer\2024-01-08-00_00_2024-03-23-23_59_Sentinel-2_L2A_custom (1).tiff"
-# stack_path = r"E:\Projects for Resume\terrain_analyzer\urban_encroachment_stack.tif"
-
-# with rasterio.open(stack_path) as src:
-#     data = src.read()
-#     print("Bands:", src.count)
-#     print("Shape:", data.shape)
-#     print("Dtype:", src.dtypes)
-#     print("CRS:", src.crs)
-#     print("Resolution:", src.res)
-
-# # B02,B03,B04,B08
-# b2, b3, b4, b8 = data
-
-# rgb = np.stack([b4, b3, b2], axis=-1)
-
-# def normalize(img):
-#     img = img - img.min()
-#     img = img / (img.max() + 1e-6)
-#     return img
-
-# rgb = normalize(rgb)
-
-# ndvi = (b8 - b4) / (b8 + b4 + 1e-6)
-
-# plt.figure(figsize=(12,5))
-
-# plt.subplot(1,2,1)
-# plt.title("RGB Composite")
-# plt.imshow(rgb)
-# plt.axis("off")
-
-# plt.subplot(1,2,2)
-# plt.title("NDVI")
-# plt.imshow(ndvi, cmap="RdYlGn")
-# plt.colorbar(fraction=0.046)
-# plt.axis("off")
-
-# plt.show()
-
 import rasterio
 import numpy as np
 import matplotlib.pyplot as plt
@@ -62,19 +17,20 @@ cnn = np.load(CNN_PATH)
 
 # Band layout
 # 0–4  = before (B2,B3,B4,B8,B11)
-# 5–9  = after  (B2,B3,B4,B8,B11)
+#---[5]NDVI before  ---[6]NDBI before
+#7-11 = after  (B2,B3,B4,B8,B11) 
 # 10   = NDVI before
 # 11   = NDVI after
-# 12   = NDVI diff
-# 13   = NDBI before
-# 14   = NDBI after
+# 12   = NDVI diff  ---NDVI after
+# 13   = NDBI before  ---NDBI after
+# 14   = NDBI after  ---NDVI diff
 # 15   = NDBI diff
 
 # ----------------------------
 # RGB composites
 # ----------------------------
 b2_b, b3_b, b4_b = data[0], data[1], data[2]
-b2_a, b3_a, b4_a = data[5], data[6], data[7]
+b2_a, b3_a, b4_a = data[7], data[8], data[9]
 
 def normalize_rgb(img):
     lo = np.percentile(img, 2)
@@ -87,7 +43,7 @@ rgb_after  = normalize_rgb(np.stack([b4_a, b3_a, b2_a], axis=-1))
 # ----------------------------
 # Change maps
 # ----------------------------
-ndvi_diff = data[12]
+ndvi_diff = data[14]
 ndbi_diff = data[15]
 
 cnn_norm = (cnn - cnn.min()) / (cnn.max() - cnn.min() + 1e-6)
