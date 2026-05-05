@@ -29,13 +29,6 @@ instance/
 *.ckpt
 *.onnx
 
-# Large data files
-*.tif
-*.tiff
-*.npy
-*.npz
-*.csv
-
 # =========================
 # 🔹 Uploaded / Temp files
 # =========================
