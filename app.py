@@ -8,7 +8,9 @@ import tempfile
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app,  resources={
+    r"/predict": {"origins": "https://urban-encroachment-detection.vercel.app"}
+})
 
 app.config['MAX_CONTENT_LENGTH'] = 500 * 1024 * 1024
 app.config['UPLOAD_FOLDER'] = tempfile.gettempdir()
@@ -209,4 +211,5 @@ def health():
 
 if __name__ == "__main__":
     print("🚀 Server started")
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
