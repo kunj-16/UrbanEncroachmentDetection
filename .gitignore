@@ -1,0 +1,79 @@
+# =========================
+# 🔹 Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# =========================
+# 🔹 Flask / Logs
+# =========================
+*.log
+*.sqlite3
+instance/
+.webassets-cache
+
+# =========================
+# 🔹 ML / Model Files
+# =========================
+*.pt
+*.pth
+*.h5
+*.ckpt
+*.onnx
+
+# Large data files
+*.tif
+*.tiff
+*.npy
+*.npz
+*.csv
+
+# =========================
+# 🔹 Uploaded / Temp files
+# =========================
+uploaded_images/
+temp/
+tmp/
+*.tmp
+
+# =========================
+# 🔹 OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# 🔹 IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# 🔹 Node / Frontend (if used)
+# =========================
+node_modules/
+build/
+dist/
+
+# =========================
+# 🔹 Environment Variables
+# =========================
+.env
+.env.*
+
+# =========================
+# 🔹 Misc
+# =========================
+*.zip
+*.tar.gz
+*.bak
